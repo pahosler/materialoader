@@ -1,0 +1,31 @@
+<html>
+<title>Upload file manager</title>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="public/css/main.css">
+  <link rel="stylesheet" href="public/css/uploaderfy.css">
+</head>
+<!-- Container -->
+<h1 class="title" align="center">UPLOADERFY</h1>
+<div class="container7">
+  <!-- Upload region -->
+  <form id="form-uploader" >
+    <div class="row">
+      <div id="uploader" class="colS-12"></div>
+    </div>
+      <input id="btn-submit" class="btn success" type="button" value="UPLOAD" />
+  </form>
+
+  <script src="public/js/uploaderfy.js"></script>
+  <script>
+    var uploader = new uploaderfy('uploader', {
+      x: "400",
+      y: "200",
+      nelements: 2,
+      fontfamily: 'Arial'
+    });
+  </script>
+  </body>
+
+</html>
