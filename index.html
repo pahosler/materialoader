@@ -3,25 +3,34 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="public/css/main.css">
-  <link rel="stylesheet" href="public/css/uploaderfy.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <!-- Container -->
-<h1 class="title" align="center">UPLOADERFY</h1>
-<div class="container7">
+<h1 class="title" align="center">MATERIALOADER</h1>
+<div class="container">
   <!-- Upload region -->
-  <form id="form-uploader" >
+  <form id="form-uploader">
     <div class="row">
-      <div id="uploader" class="colS-12"></div>
+      <div class="col s12 m5 offset-l3">
+        <div id="uploader" class="card-panel"></div>
+        <div class="row">
+          <div class="col s12 m5 offset-l4"> <input id="btn-submit" class="btn success center-align" type="button" value="UPLOAD" />
+          </div>
+        </div>
+      </div>
     </div>
-      <input id="btn-submit" class="btn success" type="button" value="UPLOAD" />
   </form>
 
-  <script src="public/js/uploaderfy.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+  <script src="dist/uploaderfy.js"></script>
+
   <script>
-    var uploader = new uploaderfy('uploader', {
+    var uploader = new materialoader('uploader', {
       x: "400",
       y: "200",
+      skin: "grey lighten-2",
       nelements: 2,
       fontfamily: 'Arial'
     });
