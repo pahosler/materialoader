@@ -121,6 +121,7 @@
     modal.id = 'modal-' + this.getUploaderName();
     modal.className = 'modal';
     modal.innerHTML = '<div class="modal-content"><img class="modal-img responsive-img" style="width:200px;height:200px"><h4>Name<span class="modal-name"></span></h4><p>Size<span class="modal-size"></span></p><p>Type<span class="modal-type"></span></p></div><div class="modal-footer"><a href="#!" class="waves-effect waves-light btn close-modal">Exit</a><a href="#!" class="waves-effect waves-light btn delete-modal red"><i class="material-icons">delete</i> Delete</a></div>'
+    modal.getElementsByClassName('delete-modal')[0].addEventListener('click', deleteButtonClick.bind(this));
 
     var input_file = document.createElement('input');
     input_file.id = "materialoader-inputfile";
@@ -267,7 +268,8 @@
    * @param  {[type]} ev     [description]
    * @return {[type]}        [description]
    */
-  function deleteButtonClick(fileid, ev) {
+  function deleteButtonClick(ev) {
+    var fileid = ev.target.getAttribute('data-id');
     this.removeFile(fileid);
   };
   /**
@@ -285,7 +287,7 @@
     modal.getElementsByClassName('modal-type')[0].innerHTML = file_clicked.type;
     modal.getElementsByClassName('modal-size')[0].innerHTML = file_clicked.size;
     modal.getElementsByClassName('modal-img responsive-img')[0].src = e.target.src;
-    modal.getElementsByClassName('delete-modal')[0].addEventListener('click', deleteButtonClick.bind(this, e.target.id));
+    modal.getElementsByClassName('delete-modal')[0].setAttribute('data-id', e.target.id);
     modal.addEventListener('click', closeModal.bind(this));
   }
 
