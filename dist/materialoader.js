@@ -84,19 +84,19 @@
       this.clearInfoUploader();
     };
     /*
-
+       Returns the skin selected
      */
     this.getSkin = function() {
       return _skin;
     }
     /*
-
+      increase the counter by 1
      */
     this.setCounter = function() {
       _counter++;
     };
     /*
-
+      Counts the number of files loaded so far
      */
     this.getCounter = function() {
       return _counter;
@@ -121,7 +121,7 @@
     var modal = document.createElement('div');
     modal.id = 'modal-' + this.getUploaderName();
     modal.className = 'modal';
-    modal.innerHTML = '<div class="modal-content"><div class="row"><div class="col l4"><img class="modal-img responsive-img" style="width:200px;height:200px"></div><div class="col l8"><p><blockquote><b>Name: </b><span class="modal-name"></blockquote></span></p><p><blockquote><b>Size: </b><span class="modal-size"></blockquote></span></p><p><blockquote><b>Type: </b><span class="modal-type"></blockquote></span></p></div></div></div><div class="modal-footer"><a href="#!" class="waves-effect waves-light btn close-modal">Exit</a><a href="#!" class="waves-effect waves-light btn delete-modal red"><i class="material-icons">delete</i> Delete</a></div>';
+    modal.innerHTML = '<div class="modal-content"><div class="row"><div class="col l4"><img class="modal-img responsive-img materialboxed" style="width:200px;height:200px"></div><div class="col l8"><p><blockquote><b>Name: </b><span class="modal-name"></blockquote></span></p><p><blockquote><b>Size: </b><span class="modal-size"></blockquote></span></p><p><blockquote><b>Type: </b><span class="modal-type"></blockquote></span></p></div></div></div><div class="modal-footer"><a href="#!" class="waves-effect waves-light btn close-modal">Exit</a><a href="#!" class="waves-effect waves-light btn delete-modal red"><i class="material-icons">delete</i> Delete</a></div>';
     modal.getElementsByClassName('delete-modal')[0].addEventListener('click', deleteButtonClick.bind(this));
 
     var input_file = document.createElement('input');
@@ -131,9 +131,7 @@
     input_file.style.display = 'none';
     input_file.name = this.getUploaderName() + 'files';
 
-    uploader.className += ` ${this.getSkin()}`;
-    uploader.parentNode.insertBefore(input_file, uploader.nextSibling);
-    uploader.parentNode.insertBefore(modal, uploader.nextSibling);
+
 
     //Info panel element
     var infoElement = document.createElement('h4');
@@ -141,23 +139,23 @@
     infoElement.id = 'info-uploader';
     infoElement.appendChild(document.createTextNode("Drop files here or click to browse"));
     infoElement.setAttribute("style", 'font-family:' + this.getFontfamily());
-    uploader.appendChild(infoElement);
 
-    //Setting uploader dimensions
+    uploader.className += ` ${this.getSkin()}`;
+    uploader.parentNode.insertBefore(input_file, uploader.nextSibling);
+    uploader.parentNode.insertBefore(modal, uploader.nextSibling);
+    uploader.appendChild(infoElement);
     uploader.setAttribute("style", 'width:' + this.getWidth() + 'px;min-height:' + this.getHeight() + 'px; padding: 20px;');
   }
 
   /**
-   * [clearInfoUploader description]
-   * @return {[type]} [description]
+   * Clears the panel info away in case there are loaded elements
    */
   materialoader.prototype.clearInfoUploader = function() {
     var inf_uploader = document.getElementById('info-uploader');
     inf_uploader.style.display = Object.keys(this.getFiles()).length > 0 ? 'none' : 'flex';
   }
   /**
-   * [drawFilesIcons description]
-   * @return {[type]} [description]
+   * Paints on the panel the icon that represents each file
    */
   materialoader.prototype.drawFileIcon = function(file) {
     var uploader = document.getElementById(this.getUploaderName());
@@ -187,14 +185,12 @@
   }
 
   /**
-   * [eventListenerFactory description]
-   * @param  {[type]} ev [description]
-   * @return {[type]}    [description]
+   * Groups up all listeners attached to the uploader
    */
   materialoader.prototype.uploaderListeners = function(uploader) {
     var that = this;
     var inputfile = document.getElementById(`${this.getUploaderName()}-inputfile`);
-    uploader.addEventListener("mouseover", mouseover, false);
+    uploader.addEventListener("mouseover", mouseover, true);
     uploader.addEventListener("mouseout", mouseout, false);
     uploader.addEventListener("dragover", dragover, false);
     uploader.addEventListener("drop", dropFiles.bind(that), false);
@@ -210,8 +206,9 @@
    * @param  {[type]} ev [description]
    * @return {[type]}    [description]
    */
-  function mouseover(ev) {}
-  //console.log("Mouse over");
+  function mouseover(ev) {
+    console.log("Mouse over");
+  }
 
   /**
    * [mouseout description]
@@ -228,8 +225,9 @@
    */
   function dragover(ev) {
     ev.stopPropagation();
+    ev.preventDefault();
     ev.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-    ///console.log("drag over");
+    //console.log("drag over");
   }
 
   /**
@@ -249,6 +247,7 @@
    */
   function dropFiles(ev) {
     ev.stopPropagation();
+    ev.preventDefault();
     var files = ev.dataTransfer.files; // FileList object.
     this.addFiles(files);
   }
@@ -286,7 +285,7 @@
     modal.getElementsByClassName('modal-name')[0].innerHTML = file_clicked.name;
     modal.getElementsByClassName('modal-type')[0].innerHTML = file_clicked.type;
     modal.getElementsByClassName('modal-size')[0].innerHTML = file_clicked.size;
-    modal.getElementsByClassName('modal-img responsive-img')[0].src = e.target.src;
+    modal.getElementsByClassName('modal-img responsive-img materialboxed')[0].src = e.target.src;
     modal.getElementsByClassName('delete-modal')[0].setAttribute('data-id', e.target.id);
     modal.addEventListener('click', closeModal.bind(this));
   }
