@@ -77,9 +77,8 @@
      */
     this.removeFile = function(f) {
       var icon_file = document.getElementById(f);
-      var modal = document.getElementById('modal-activated');
-
       delete _files[f];
+
       icon_file.parentNode.removeChild(icon_file);
       $('#modal-' + this.getUploaderName()).modal('close');
     };
@@ -135,9 +134,9 @@
 
     //Info panel element
     var infoElement = document.createElement('h4');
-    infoElement.className = "info-uploader";
+    infoElement.className = "info-uploader center-align";
     infoElement.id = 'info-uploader';
-    infoElement.appendChild(document.createTextNode("CLICK OR DROP A FILE HERE"));
+    infoElement.appendChild(document.createTextNode("Drop files here or click to browse"));
     infoElement.setAttribute("style", 'font-family:' + this.getFontfamily());
     uploader.appendChild(infoElement);
 

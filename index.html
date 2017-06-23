@@ -5,36 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
 </head>
-<!-- Container -->
-<h1 class="title" align="center">MATERIALOADER</h1>
-<div class="container">
-  <!-- Upload region -->
-  <form id="form-uploader">
-    <div class="row">
-      <div class="col s12 m5 offset-l3">
-        <div id="uploader" class="card-panel"></div>
-        <div class="row">
-          <div class="col s12 m5 offset-l4"> <input id="btn-submit" class="btn success center-align" type="button" value="UPLOAD" />
-          </div>
+<style>
+  .title {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  body {
+    background: rgba(181, 238, 237, 1);
+  }
+</style>
+
+<body>
+  <!-- Container -->
+  <h1 class="title" align="center">MATERIALOADER</h1>
+  <div class="container">
+    <!-- Upload region -->
+    <form id="form-uploader">
+      <div class="row">
+        <div class="col s4 m4 l4 offset-l4 offset-m4 offset-s2">
+          <div id="uploader" class="card-panel"></div>
         </div>
       </div>
-    </div>
-  </form>
-
+      <div class="row">
+        <div class="center-align"> <input id="btn-submit" class="btn success center-align" type="button" value="UPLOAD" />
+        </div>
+      </div>
+    </form>
+  </div>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
-  <script src="dist/uploaderfy.js"></script>
+  <script src="dist/materialoader.js"></script>
 
   <script>
     var uploader = new materialoader('uploader', {
-      x: "400",
+      x: "300",
       y: "200",
-      skin: "grey lighten-2",
+      skin: "grey lighten-3",
       nelements: 2,
-      fontfamily: 'Arial'
+      fontfamily: "'Patrick Hand SC', cursive;"
     });
   </script>
-  </body>
+</body>
 
 </html>
