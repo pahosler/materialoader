@@ -81,6 +81,7 @@
 
       icon_file.parentNode.removeChild(icon_file);
       $('#modal-' + this.getUploaderName()).modal('close');
+      this.clearInfoUploader();
     };
     /*
 
@@ -120,15 +121,16 @@
     var modal = document.createElement('div');
     modal.id = 'modal-' + this.getUploaderName();
     modal.className = 'modal';
-    modal.innerHTML = '<div class="modal-content"><img class="modal-img responsive-img" style="width:200px;height:200px"><h4>Name<span class="modal-name"></span></h4><p>Size<span class="modal-size"></span></p><p>Type<span class="modal-type"></span></p></div><div class="modal-footer"><a href="#!" class="waves-effect waves-light btn close-modal">Exit</a><a href="#!" class="waves-effect waves-light btn delete-modal red"><i class="material-icons">delete</i> Delete</a></div>'
+    modal.innerHTML = '<div class="modal-content"><div class="row"><div class="col l4"><img class="modal-img responsive-img" style="width:200px;height:200px"></div><div class="col l8"><p><blockquote><b>Name: </b><span class="modal-name"></blockquote></span></p><p><blockquote><b>Size: </b><span class="modal-size"></blockquote></span></p><p><blockquote><b>Type: </b><span class="modal-type"></blockquote></span></p></div></div></div><div class="modal-footer"><a href="#!" class="waves-effect waves-light btn close-modal">Exit</a><a href="#!" class="waves-effect waves-light btn delete-modal red"><i class="material-icons">delete</i> Delete</a></div>';
     modal.getElementsByClassName('delete-modal')[0].addEventListener('click', deleteButtonClick.bind(this));
 
     var input_file = document.createElement('input');
-    input_file.id = "materialoader-inputfile";
+    input_file.id = `${this.getUploaderName()}-inputfile`;
     input_file.type = "file";
     input_file.multiple = true;
     input_file.style.display = 'none';
     input_file.name = this.getUploaderName() + 'files';
+
     uploader.className += ` ${this.getSkin()}`;
     uploader.parentNode.insertBefore(input_file, uploader.nextSibling);
     uploader.parentNode.insertBefore(modal, uploader.nextSibling);
@@ -191,12 +193,12 @@
    */
   materialoader.prototype.uploaderListeners = function(uploader) {
     var that = this;
-    var inputfile = document.getElementById('materialoader-inputfile');
+    var inputfile = document.getElementById(`${this.getUploaderName()}-inputfile`);
     uploader.addEventListener("mouseover", mouseover, false);
     uploader.addEventListener("mouseout", mouseout, false);
     uploader.addEventListener("dragover", dragover, false);
     uploader.addEventListener("drop", dropFiles.bind(that), false);
-    uploader.addEventListener("click", uploaderOnClick);
+    uploader.addEventListener("click", uploaderOnClick.bind(that));
     inputfile.addEventListener('change', function onChange(evt) {
       var files = this.files;
       that.addFiles(files);
@@ -226,7 +228,6 @@
    */
   function dragover(ev) {
     ev.stopPropagation();
-    ev.preventDefault();
     ev.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
     ///console.log("drag over");
   }
@@ -237,7 +238,7 @@
    * @return {[type]}    [description]
    */
   function uploaderOnClick(ev) {
-    var ifile = document.getElementById('materialoader-inputfile');
+    var ifile = document.getElementById(`${this.getUploaderName()}-inputfile`);
     ifile.click();
   }
 
@@ -248,7 +249,6 @@
    */
   function dropFiles(ev) {
     ev.stopPropagation();
-    ev.preventDefault();
     var files = ev.dataTransfer.files; // FileList object.
     this.addFiles(files);
   }
